@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,22 @@ Route::get('/', function () {
     return view('home');
 });
 
-// Lessons 2-6: you will add your routes below this line.
+// Sub-part A: MVC / Routes
+Route::get('/hello/arjun', function () {
+    return 'Hello Arjun Suresh';
+});
+
+Route::get('/about', [AboutController::class, 'index']);
+
+// Sub-part B: Resource Controller
+Route::resource('students', StudentController::class);
+
+Route::get('/roll/{roll}', function (App\Models\Student $roll) {
+    return view('students.show', ['student' => $roll]);
+});
+
+use App\Models\Student;
+
+Route::get('/api/students', function () {
+    return response()->json(Student::all());
+});
