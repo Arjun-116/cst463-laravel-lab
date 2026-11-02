@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\StudentController;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,8 @@ Route::get('/', function () {
 });
 
 // Sub-part A: MVC / Routes
-Route::get('/hello/arjun', function () {
-    return 'Hello Arjun Suresh';
+Route::get('/hello/{name}', function ($name) {
+    return 'Hello ' . ucfirst($name);
 });
 
 Route::get('/about', [AboutController::class, 'index']);
@@ -31,12 +32,12 @@ Route::get('/about', [AboutController::class, 'index']);
 // Sub-part B: Resource Controller
 Route::resource('students', StudentController::class);
 
-Route::get('/roll/{roll}', function (App\Models\Student $roll) {
+// Sub-part C: Explicit Route Binding
+Route::get('/roll/{roll}', function (Student $roll) {
     return view('students.show', ['student' => $roll]);
 });
 
-use App\Models\Student;
-
+// Sub-part E: JSON API Endpoint
 Route::get('/api/students', function () {
     return response()->json(Student::all());
 });
