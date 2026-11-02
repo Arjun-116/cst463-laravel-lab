@@ -25,6 +25,17 @@ class StudentController extends Controller
     {
         // Add creation logic if testing form submission
         // After saving:
+        $validated = $request->validate([
+        'roll_no' => 'required|unique:students,roll_no',
+        'name' => 'required',
+        'email' => 'required|email',
+        'cgpa' => 'required|numeric',
+        ]);
+
+        $validated['department'] = 'CSE';
+        $validated['semester'] = 7;
+
+        Student::create($validated);
         return redirect()->route('students.index')->with('status', 'Student created successfully!');
     }
 

@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <h1>Student List</h1>
 
-        {{-- Flash Status Message Check -->>
+        {{-- Flash Status Message Check --}}
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
